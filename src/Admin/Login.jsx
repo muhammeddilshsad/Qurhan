@@ -94,7 +94,7 @@ const QuranAdminLogin = ({ onLogin }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-                    placeholder="admin@example.com"
+                    placeholder="Email"
                     disabled={isLoading}
                   />
                 </div>

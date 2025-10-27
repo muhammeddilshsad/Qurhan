@@ -65,7 +65,7 @@ const SurahAyatModal = ({ surah, onClose, onSave }) => {
             type="text"
             value={newAyat}
             onChange={(e) => setNewAyat(e.target.value)}
-            placeholder="Type new ayat here..."
+            placeholder=""
             className="flex-1 border rounded-lg px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-teal-400"
             style={{ direction: 'rtl' }}
           />

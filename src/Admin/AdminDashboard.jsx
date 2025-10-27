@@ -142,6 +142,7 @@ import { Search, Edit2, Trash2, ExternalLink, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AddSurahModal from './AddSurahModal';
 import SurahAyatModal from './SurahAyatModal';
+import EditSurahModal from './EditSurahModal';
 
 const SurahManagementModal = ({ onClose }) => {
   const navigate = useNavigate();
@@ -174,9 +175,13 @@ const SurahManagementModal = ({ onClose }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedSurah, setSelectedSurah] = useState(null);
+  const [editingSurah, setEditingSurah] = useState(null);
 
   const handleDeleteSurah = (id) => setSurahs(surahs.filter(s => s.id !== id));
   const handleAddSurah = (newSurah) => setSurahs([...surahs, { ...newSurah, id: surahs.length + 1 }]);
+  const handleEditSurah = (updatedSurah) => {
+    setSurahs(surahs.map(s => s.id === updatedSurah.id ? updatedSurah : s));
+  };
 
   const filteredSurahs = surahs.filter(surah =>
     surah.arabic.includes(searchQuery) ||
@@ -233,7 +238,7 @@ const SurahManagementModal = ({ onClose }) => {
                         {surah.arabic}
                       </h3>
                       <button
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => { e.stopPropagation(); setEditingSurah(surah); }}
                         className="text-blue-400 hover:bg-blue-50 p-2 rounded transition"
                       >
                         <Edit2 size={20} />
@@ -267,6 +272,9 @@ const SurahManagementModal = ({ onClose }) => {
 
       {/* Add Surah Modal */}
       {showAddModal && <AddSurahModal onClose={() => setShowAddModal(false)} onSave={handleAddSurah} />}
+
+      {/* Edit Surah Modal */}
+      {editingSurah && <EditSurahModal surah={editingSurah} onClose={() => setEditingSurah(null)} onSave={handleEditSurah} />}
 
       {/* Surah Ayat Modal */}
       {selectedSurah && <SurahAyatModal surah={selectedSurah} onClose={() => setSelectedSurah(null)} />}
